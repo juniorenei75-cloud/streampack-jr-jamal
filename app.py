@@ -64,16 +64,6 @@ MOZ_TZ = timezone(timedelta(hours=2))
 
 
 
-MOVIE_RECS = [
-    {"title": "Deadpool & Wolverine", "year": "2024", "tag": "Ação · Comédia", "blurb": "O anti-herói regressa com Wolverine — já disponível.", "platform": "Disney+", "poster": "img/posters/deadpool-wolverine.png"},
-    {"title": "Inside Out 2", "year": "2024", "tag": "Animação · Família", "blurb": "Novas emoções na mente da Riley. Ideal para toda a família.", "platform": "Disney+", "poster": "img/posters/inside-out-2.png"},
-    {"title": "Dune: Part Two", "year": "2024", "tag": "Ficção científica", "blurb": "Paul Atreides no deserto de Arrakis — já podes ver.", "platform": "Amazon Prime Video", "poster": "img/posters/dune-part-two.png"},
-    {"title": "Wicked", "year": "2024", "tag": "Musical · Fantasia", "blurb": "A história das bruxas de Oz em grande espetáculo.", "platform": "Amazon Prime Video", "poster": "img/posters/wicked.png"},
-    {"title": "Moana 2", "year": "2024", "tag": "Animação · Aventura", "blurb": "Moana volta ao oceano numa nova viagem.", "platform": "Disney+", "poster": "img/posters/moana-2.png"},
-    {"title": "Gladiator II", "year": "2024", "tag": "Ação · Épico", "blurb": "Roma, arena e vingança — continuação do clássico.", "platform": "Amazon Prime Video", "poster": "img/posters/gladiator-ii.png"},
-]
-
-
 SERIES_RECS = [
     {"title": "Stranger Things", "year": "5.ª temporada", "tag": "Ficção · Mistério", "blurb": "O fim da saga em Hawkins — ideal para maratonar.", "platform": "Netflix", "poster": "img/posters/stranger-things.png"},
     {"title": "The Boys", "year": "Nova temporada", "tag": "Ação · Sátira", "blurb": "Super-heróis corruptos e muita adrenalina.", "platform": "Amazon Prime Video", "poster": "img/posters/the-boys.png"},
@@ -321,7 +311,6 @@ def index():
     return render_template(
         "index.html",
         products=list(PRODUCTS.values()),
-        movie_recs=MOVIE_RECS,
         series_recs=SERIES_RECS,
     )
 

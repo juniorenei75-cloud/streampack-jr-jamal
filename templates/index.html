@@ -17,7 +17,6 @@
     <p class="lead">Netflix, Disney+ e Amazon Prime Video — escolhe o plano e encomenda em minutos.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#pacotes">Ver pacotes</a>
-      <a class="btn btn-outline" href="#filmes">Filmes</a>
       <a class="btn btn-outline" href="#series">Séries</a>
     </div>
   </div>
@@ -50,31 +49,6 @@
           <input type="hidden" name="qty" value="1">
           <button class="btn btn-primary" type="submit">Adicionar 1 mês</button>
         </form>
-      </div>
-    </article>
-    {% endfor %}
-  </div>
-</section>
-
-<section class="section" id="filmes">
-  <div class="section-head">
-    <h2>Filmes recentes</h2>
-    <p class="muted">Filmes já disponíveis — para veres no teu pacote agora.</p>
-  </div>
-  <div class="rec-grid">
-    {% for m in movie_recs %}
-    <article class="rec-card">
-      <img class="rec-poster" src="{{ url_for('static', filename=m.poster) }}" alt="{{ m.title }}">
-      <div class="rec-body">
-        <div class="rec-badge">Filme · {{ m.year }}</div>
-        <h3>{{ m.title }}</h3>
-        <p class="rec-tag">{{ m.tag }}</p>
-        <p class="desc">{{ m.blurb }}</p>
-        {% if platform_logos.get(m.platform) %}
-        <img class="rec-platform-logo" src="{{ url_for('static', filename=platform_logos[m.platform]) }}" alt="{{ m.platform }}">
-        {% else %}
-        <p class="muted">{{ m.platform }}</p>
-        {% endif %}
       </div>
     </article>
     {% endfor %}
