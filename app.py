@@ -306,6 +306,50 @@ def inject_globals():
 
 
 
+
+SITE_URL = os.environ.get("SITE_URL", "https://streampack-jr-jamal.onrender.com").rstrip("/")
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    body = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /carrinho\n"
+        "Disallow: /checkout\n"
+        "Disallow: /pagamento/\n"
+        "Disallow: /comprovativo/\n"
+        "Disallow: /enviado/\n"
+        "Disallow: /confirmacao/\n\n"
+        f"Sitemap: {SITE_URL}/sitemap.xml\n"
+    )
+    return app.response_class(body, mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap():
+    pages = [("/", "1.0", "daily")] + [
+        (f"/produto/{pid}", "0.9", "weekly") for pid in PRODUCTS.keys()
+    ]
+    urls = []
+    for path, priority, freq in pages:
+        urls.append(
+            "  <url>\n"
+            f"    <loc>{SITE_URL}{path}</loc>\n"
+            f"    <changefreq>{freq}</changefreq>\n"
+            f"    <priority>{priority}</priority>\n"
+            "  </url>"
+        )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(urls)
+        + "\n</urlset>\n"
+    )
+    return app.response_class(xml, mimetype="application/xml")
+
+
+
 @app.route("/")
 def index():
     return render_template(

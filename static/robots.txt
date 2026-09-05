@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /carrinho
+Disallow: /checkout
+Disallow: /pagamento/
+Disallow: /comprovativo/
+Disallow: /enviado/
+Disallow: /confirmacao/
+
+Sitemap: https://streampack-jr-jamal.onrender.com/sitemap.xml

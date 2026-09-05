@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-MZ">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}{{ brand }}{% endblock %}</title>
+  <title>{% block title %}{{ brand }} — Netflix, Disney+ e Prime Video em Moçambique{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Compra assinaturas Netflix, Disney+ e Amazon Prime Video em Moçambique. Paga com Mola ou Millennium BIM. StreamPack Jr.Jamal — Nampula e online.{% endblock %}">
+  <meta name="keywords" content="Netflix Moçambique, Disney+ Moçambique, Amazon Prime Video Moçambique, comprar Netflix, assinatura streaming, StreamPack, Nampula, Mola, Millennium BIM">
+  <meta name="robots" content="{% block robots %}index, follow{% endblock %}">
+  <meta name="author" content="StreamPack Jr.Jamal">
+  <link rel="canonical" href="{% block canonical %}{{ request.url_root.rstrip('/') }}{{ request.path }}{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_MZ">
+  <meta property="og:site_name" content="{{ brand }}">
+  <meta property="og:title" content="{% block og_title %}{{ brand }} — Netflix, Disney+ e Prime Video em Moçambique{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Assinaturas de streaming em Moçambique. Netflix, Disney+ e Amazon Prime Video. Pagamento Mola ou BIM.{% endblock %}">
+  <meta property="og:url" content="{{ request.url_root.rstrip('/') }}{{ request.path }}">
+  <meta property="og:image" content="{{ request.url_root.rstrip('/') }}{{ url_for('static', filename='img/logo-c.png') }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{% block tw_title %}{{ brand }} — Streaming em Moçambique{% endblock %}">
+  <meta name="twitter:description" content="{% block tw_description %}Netflix, Disney+ e Amazon Prime Video. Paga com Mola ou Millennium BIM.{% endblock %}">
+  <link rel="icon" href="{{ url_for('static', filename='img/logo-c.png') }}" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% block head_extra %}{% endblock %}
 </head>
 <body>
   <header class="site-header">
@@ -32,7 +49,7 @@
     {% block content %}{% endblock %}
   </main>
   <footer class="site-footer">
-    <div class="container muted">{{ brand }} · Protótipo · Pagamento manual via WhatsApp</div>
+    <div class="container muted">{{ brand }} · Assinaturas streaming em Moçambique · Pagamento via WhatsApp</div>
   </footer>
 </body>
 </html>

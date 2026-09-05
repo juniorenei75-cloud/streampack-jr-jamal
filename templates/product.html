@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-{% block title %}{{ product.name }} · {{ brand }}{% endblock %}
+{% block title %}Comprar {{ product.name }} em Moçambique · {{ brand }}{% endblock %}
+{% block meta_description %}Assinatura {{ product.name }} em Moçambique desde {{ format_mzn(product.plans[0].price_mzn) }}/mês. Paga com Mola ou Millennium BIM via StreamPack Jr.Jamal.{% endblock %}
+{% block og_title %}Comprar {{ product.name }} em Moçambique · {{ brand }}{% endblock %}
 {% block content %}
 <section class="section">
   <p class="eyebrow"><a href="{{ url_for('index') }}">← Pacotes</a></p>

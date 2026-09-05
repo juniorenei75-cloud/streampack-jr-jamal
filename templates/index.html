@@ -1,5 +1,22 @@
 {% extends "base.html" %}
-{% block title %}{{ brand }} — Streaming{% endblock %}
+{% block title %}StreamPack Jr.Jamal — Comprar Netflix, Disney+ e Prime Video em Moçambique{% endblock %}
+{% block meta_description %}Loja de streaming em Moçambique: Netflix, Disney+ e Amazon Prime Video desde 350 MZN/mês. Paga com Mola ou Millennium BIM e recebe no WhatsApp.{% endblock %}
+{% block og_title %}StreamPack Jr.Jamal — Netflix, Disney+ e Prime Video em Moçambique{% endblock %}
+{% block head_extra %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "StreamPack Jr.Jamal",
+  "description": "Loja de assinaturas Netflix, Disney+ e Amazon Prime Video em Moçambique.",
+  "url": "{{ request.url_root.rstrip('/') }}/",
+  "image": "{{ request.url_root.rstrip('/') }}{{ url_for('static', filename='img/logo-c.png') }}",
+  "areaServed": "MZ",
+  "priceRange": "350 MZN+",
+  "telephone": "+258849053340"
+}
+</script>
+{% endblock %}
 {% block content %}
 <section class="hero hero-grid hero-animated">
   <div class="hero-bg" aria-hidden="true">
@@ -9,20 +26,27 @@
     <span class="hero-gridlines"></span>
   </div>
   <div class="hero-copy">
-    <p class="eyebrow">Loja de streaming</p>
+    <p class="eyebrow">Loja de streaming em Moçambique</p>
     <div class="hero-brand">
       <img class="hero-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="{{ brand }}">
     </div>
-    <h1 class="page-title">{{ brand }}</h1>
-    <p class="lead">Netflix, Disney+ e Amazon Prime Video — escolhe o plano e encomenda em minutos.</p>
+    <h1 class="page-title">Comprar Netflix, Disney+ e Amazon Prime Video</h1>
+    <p class="lead">Assinaturas de streaming em Moçambique — escolhe o plano, paga com Mola ou Millennium BIM e confirma no WhatsApp.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#pacotes">Ver pacotes</a>
       <a class="btn btn-outline" href="#series">Séries</a>
     </div>
   </div>
   <div class="hero-panel">
-    <p class="muted">Protótipo local</p>
-    <p>Paga por Mola ou Millennium BIM e envia o comprovativo no WhatsApp.</p>
+    <p class="muted">Como funciona</p>
+    <p>Encomenda online, transferes e envias o comprovativo no WhatsApp. Atendimento em Nampula e online.</p>
+  </div>
+</section>
+
+<section class="section" id="sobre">
+  <div class="section-head">
+    <h2>Streaming acessível em Moçambique</h2>
+    <p class="muted">A StreamPack Jr.Jamal vende pacotes Netflix, Disney+ e Amazon Prime Video com preços simples: 350 MZN por mês. Ideal se procuras comprar Netflix em Moçambique, assinatura Disney+ ou Prime Video com pagamento Mola ou BIM.</p>
   </div>
 </section>
 
@@ -35,7 +59,7 @@
     {% for p in products %}
     <article class="product-card" style="--product-accent: {{ p.accent }}; --product-accent-soft: {{ p.accent_soft }}">
       <div class="product-logo-wrap">
-        <img class="product-logo" src="{{ url_for('static', filename=p.logo) }}" alt="{{ p.name }}">
+        <img class="product-logo" src="{{ url_for('static', filename=p.logo) }}" alt="{{ p.name }} Moçambique">
       </div>
       <h3>{{ p.name }}</h3>
       <p class="tagline">{{ p.tagline }}</p>
