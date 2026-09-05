@@ -952,3 +952,21 @@ table.admin th {
 @media (prefers-reduced-motion: reduce) {
   .hero-bg, .orb, .hero-gridlines { animation: none !important; }
 }
+
+
+/* Force visible movie/series covers */
+.rec-card { min-height: 280px; background: #12151c; }
+.rec-poster {
+  width: 100% !important;
+  min-height: 220px !important;
+  aspect-ratio: 2 / 3 !important;
+  object-fit: cover !important;
+  display: block !important;
+  background: #222 !important;
+  border: 0 !important;
+}
+.rec-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+  gap: 1rem !important;
+}

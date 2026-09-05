@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}{{ brand }}{% endblock %}</title>
+  <title>{% block title %}Admin · StreamPack{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="{{ url_for('index') }}">
-        <img class="brand-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="{{ brand }}">
-        <span class="brand-text">{{ brand }}</span>
+      <a class="brand" href="{{ url_for('admin') }}">
+        <img class="brand-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="StreamPack Admin">
+        <span class="brand-text">StreamPack Admin</span>
       </a>
       <nav class="nav-links">
-        <a href="{{ url_for('index') }}">Início</a>
-        <a href="{{ url_for('cart_view') }}">Carrinho {% if cart_count %}<span class="cart-badge">{{ cart_count }}</span>{% endif %}</a>
+        <a href="{{ url_for('admin') }}">Pedidos</a>
+        {% if session.get('admin_ok') %}
+        <a href="{{ url_for('admin_logout') }}">Sair</a>
+        {% endif %}
       </nav>
     </div>
   </header>
@@ -32,7 +34,7 @@
     {% block content %}{% endblock %}
   </main>
   <footer class="site-footer">
-    <div class="container muted">{{ brand }} · Protótipo · Pagamento manual via WhatsApp</div>
+    <div class="container muted">Painel administrativo · StreamPack Jr.Jamal · separado da loja</div>
   </footer>
 </body>
 </html>

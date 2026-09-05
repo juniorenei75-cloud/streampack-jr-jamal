@@ -314,14 +314,6 @@ def inject_globals():
     }
 
 
-def admin_required(view):
-    @wraps(view)
-    def wrapped(*args, **kwargs):
-        if not session.get("admin_ok"):
-            return redirect(url_for("admin_login", next=request.path))
-        return view(*args, **kwargs)
-
-    return wrapped
 
 
 @app.route("/")
@@ -598,75 +590,6 @@ def confirmation(order_id):
         return redirect(url_for("receipt_upload", order_id=order_id))
     return redirect(url_for("sent", order_id=order_id))
 
-
-@app.route("/admin/login", methods=["GET", "POST"])
-def admin_login():
-    if session.get("admin_ok"):
-        return redirect(url_for("admin"))
-    if request.method == "POST":
-        if request.form.get("password", "") == ADMIN_PASSWORD:
-            session["admin_ok"] = True
-            return redirect(request.args.get("next") or url_for("admin"))
-        flash("Palavra-passe incorreta.", "error")
-    return render_template("admin_login.html")
-
-
-@app.route("/admin/logout")
-def admin_logout():
-    session.pop("admin_ok", None)
-    flash("Sessão de admin terminada.", "success")
-    return redirect(url_for("index"))
-
-
-@app.route("/admin")
-@admin_required
-def admin():
-    rows = get_db().execute("SELECT * FROM orders ORDER BY created_at DESC").fetchall()
-    orders = []
-    for row in rows:
-        o = dict(row)
-        o["items"] = json.loads(o["items_json"])
-        try:
-            dt = datetime.fromisoformat(o["created_at"])
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            o["created_display"] = dt.astimezone(MOZ_TZ).strftime("%d/%m/%Y %H:%M")
-        except Exception:
-            o["created_display"] = o["created_at"]
-        orders.append(o)
-    return render_template("admin.html", orders=orders)
-
-
-@app.route("/admin/pedido/<order_id>/estado", methods=["POST"])
-@admin_required
-def admin_set_status(order_id):
-    status = request.form.get("status", "")
-    if status not in ("awaiting_payment", "awaiting_confirmation", "paid", "delivered"):
-        flash("Estado inválido.", "error")
-        return redirect(url_for("admin"))
-    cur = get_db().execute("UPDATE orders SET status = ? WHERE id = ?", (status, order_id))
-    get_db().commit()
-    labels = {
-        "awaiting_payment": "Aguarda pagamento",
-        "awaiting_confirmation": "Aguarda confirmação",
-        "paid": "Pago",
-        "delivered": "Entregue",
-    }
-    if cur.rowcount:
-        flash(f"Pedido {order_id} → {labels[status]}.", "success")
-    else:
-        flash("Pedido não encontrado.", "error")
-    return redirect(url_for("admin"))
-
-
-@app.route("/admin/comprovativo/<order_id>")
-@admin_required
-def admin_receipt(order_id):
-    order = load_order(order_id)
-    if not order or not order.get("receipt_path"):
-        flash("Comprovativo não encontrado.", "error")
-        return redirect(url_for("admin"))
-    return send_from_directory(UPLOAD_DIR, order["receipt_path"], as_attachment=False)
 
 
 init_db()
