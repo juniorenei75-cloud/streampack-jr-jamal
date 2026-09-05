@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 {% block title %}{{ brand }} — Streaming{% endblock %}
 {% block content %}
-<section class="hero hero-grid">
-  <div>
+<section class="hero hero-grid hero-animated">
+  <div class="hero-bg" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+    <span class="hero-gridlines"></span>
+  </div>
+  <div class="hero-copy">
     <p class="eyebrow">Loja de streaming</p>
     <div class="hero-brand">
       <img class="hero-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="{{ brand }}">
