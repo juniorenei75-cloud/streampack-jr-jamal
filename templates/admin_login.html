@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Admin · {{ brand }}{% endblock %}
+{% block content %}
+<section class="section" style="max-width:420px;margin-inline:auto">
+  <h1 class="page-title">Admin</h1>
+  <form method="post" class="panel">
+    <div class="field">
+      <label>Palavra-passe
+        <input type="password" name="password" required autofocus>
+      </label>
+    </div>
+    <p class="help muted">Protótipo: <code>streampack2026</code></p>
+    <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+  </form>
+</section>
+{% endblock %}

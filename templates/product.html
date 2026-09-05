@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} · {{ brand }}{% endblock %}
+{% block content %}
+<section class="section">
+  <p class="eyebrow"><a href="{{ url_for('index') }}">← Pacotes</a></p>
+  <div class="product-card" style="--product-accent: {{ product.accent }}; max-width: 720px">
+    <div class="product-logo-wrap">
+      <img class="product-logo" src="{{ url_for('static', filename=product.logo) }}" alt="{{ product.name }}">
+    </div>
+    <h1 class="page-title">{{ product.name }}</h1>
+    <p class="tagline">{{ product.tagline }}</p>
+    <p class="desc">{{ product.description }}</p>
+    <form method="post" action="{{ url_for('cart_add') }}">
+      <input type="hidden" name="product_id" value="{{ product.id }}">
+      <p class="muted">Escolhe o plano</p>
+      <div class="plan-grid">
+        {% for plan in product.plans %}
+        <label class="plan-option">
+          <input type="radio" name="plan_id" value="{{ plan.id }}" {% if loop.first %}checked{% endif %}>
+          <span>{{ plan.label }}</span>
+          <strong>{{ format_mzn(plan.price_mzn) }}</strong>
+        </label>
+        {% endfor %}
+      </div>
+      <div class="qty-row field">
+        <label>Quantidade
+          <input type="number" name="qty" value="1" min="1" max="20">
+        </label>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Adicionar ao carrinho</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

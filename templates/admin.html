@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Pedidos · {{ brand }}{% endblock %}
+{% block content %}
+<section class="section admin">
+  <div class="section-head">
+    <h1 class="page-title">Pedidos</h1>
+    <a class="btn btn-ghost btn-sm" href="{{ url_for('admin_logout') }}">Sair</a>
+  </div>
+  {% if not orders %}
+  <div class="empty panel">Ainda não há pedidos.</div>
+  {% else %}
+  <div class="admin-table-wrap panel">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Data</th>
+          <th>Nome</th>
+          <th>Apelido</th>
+          <th>Contacto</th>
+          <th>Total</th>
+          <th>Pagamento</th>
+          <th>Comprovativo</th>
+          <th>Estado</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in orders %}
+        <tr>
+          <td><code>{{ o.id }}</code></td>
+          <td>{{ o.created_display }}</td>
+          <td>{{ o.first_name or o.customer_name }}</td>
+          <td>{{ o.last_name or '—' }}</td>
+          <td>{{ o.phone or '—' }}<br><span class="muted">{{ o.email or '' }}</span></td>
+          <td>{{ format_mzn(o.total_mzn) }}</td>
+          <td>{{ o.payment_method or '—' }}</td>
+          <td>
+            {% if o.receipt_path %}
+            <a href="{{ url_for('admin_receipt', order_id=o.id) }}" target="_blank">Ver</a>
+            {% else %}—{% endif %}
+          </td>
+          <td><span class="pill {{ o.status }}">{{ o.status }}</span></td>
+          <td class="status-actions">
+            <form method="post" action="{{ url_for('admin_set_status', order_id=o.id) }}" class="inline-form">
+              <button class="btn btn-sm btn-outline" name="status" value="awaiting_payment" type="submit">Pagamento</button>
+              <button class="btn btn-sm btn-outline" name="status" value="awaiting_confirmation" type="submit">Confirmar</button>
+              <button class="btn btn-sm btn-outline" name="status" value="paid" type="submit">Pago</button>
+              <button class="btn btn-sm btn-primary" name="status" value="delivered" type="submit">Entregue</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ brand }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="{{ url_for('index') }}">
+        <img class="brand-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="{{ brand }}">
+        <span class="brand-text">{{ brand }}</span>
+      </a>
+      <nav class="nav-links">
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('cart_view') }}">Carrinho {% if cart_count %}<span class="cart-badge">{{ cart_count }}</span>{% endif %}</a>
+        <a href="{{ url_for('admin') }}">Admin</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashes">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="container muted">{{ brand }} · Protótipo · Pagamento manual via WhatsApp</div>
+  </footer>
+</body>
+</html>

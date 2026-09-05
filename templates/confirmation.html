@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Pedido {{ order['id'] }} · {{ brand }}{% endblock %}
+{% block content %}
+<section class="section confirm-hero">
+  <p class="eyebrow success">Pedido criado</p>
+  <h1 class="page-title">Obrigado, {{ order['customer_name'] }}</h1>
+  <p class="lead">O teu pedido <span class="order-id">{{ order['id'] }}</span> está <strong class="pending">pendente</strong>.</p>
+  <p class="muted">Entraremos em contacto no WhatsApp <strong>{{ order['phone'] }}</strong> para confirmar o pagamento e entregar o acesso.</p>
+  <div class="panel order-items">
+    {% for i in order['items'] %}
+    <div class="summary-row">
+      <span>{{ i.product_name }} · {{ i.plan_label }} × {{ i.qty }}</span>
+      <span>{{ format_mzn(i.line_total) }}</span>
+    </div>
+    {% endfor %}
+    <div class="summary-row total">
+      <span>Total</span>
+      <strong>{{ format_mzn(order['total_mzn']) }}</strong>
+    </div>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('index') }}">Voltar à loja</a>
+</section>
+{% endblock %}

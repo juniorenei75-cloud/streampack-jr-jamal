@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}{{ brand }} — Streaming{% endblock %}
+{% block content %}
+<section class="hero hero-grid">
+  <div>
+    <p class="eyebrow">Loja de streaming</p>
+    <div class="hero-brand">
+      <img class="hero-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="{{ brand }}">
+    </div>
+    <h1 class="page-title">{{ brand }}</h1>
+    <p class="lead">Netflix, Disney+ e Amazon Prime Video — escolhe o plano e encomenda em minutos.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#pacotes">Ver pacotes</a>
+      <a class="btn btn-outline" href="#filmes">Filmes</a>
+      <a class="btn btn-outline" href="#series">Séries</a>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <p class="muted">Protótipo local</p>
+    <p>Paga por Mola ou Millennium BIM e envia o comprovativo no WhatsApp.</p>
+  </div>
+</section>
+
+<section class="section" id="pacotes">
+  <div class="section-head">
+    <h2>Pacotes</h2>
+    <p class="muted">350 MZN / mês em todos os pacotes.</p>
+  </div>
+  <div class="product-grid">
+    {% for p in products %}
+    <article class="product-card" style="--product-accent: {{ p.accent }}; --product-accent-soft: {{ p.accent_soft }}">
+      <div class="product-logo-wrap">
+        <img class="product-logo" src="{{ url_for('static', filename=p.logo) }}" alt="{{ p.name }}">
+      </div>
+      <h3>{{ p.name }}</h3>
+      <p class="tagline">{{ p.tagline }}</p>
+      <p class="desc">{{ p.description }}</p>
+      <p class="price-from">Desde <strong>{{ format_mzn(p.plans[0].price_mzn) }}</strong></p>
+      <div class="hero-actions">
+        <a class="btn btn-outline" href="{{ url_for('product_detail', product_id=p.id) }}">Ver planos</a>
+        <form method="post" action="{{ url_for('cart_add') }}" class="inline-form">
+          <input type="hidden" name="product_id" value="{{ p.id }}">
+          <input type="hidden" name="plan_id" value="{{ p.plans[0].id }}">
+          <input type="hidden" name="qty" value="1">
+          <button class="btn btn-primary" type="submit">Adicionar 1 mês</button>
+        </form>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section" id="filmes">
+  <div class="section-head">
+    <h2>Filmes recentes</h2>
+    <p class="muted">Filmes já disponíveis — para veres no teu pacote agora.</p>
+  </div>
+  <div class="rec-grid">
+    {% for m in movie_recs %}
+    <article class="rec-card">
+      <img class="rec-poster" src="{{ url_for('static', filename=m.poster) }}" alt="{{ m.title }}">
+      <div class="rec-body">
+        <div class="rec-badge">Filme · {{ m.year }}</div>
+        <h3>{{ m.title }}</h3>
+        <p class="rec-tag">{{ m.tag }}</p>
+        <p class="desc">{{ m.blurb }}</p>
+        {% if platform_logos.get(m.platform) %}
+        <img class="rec-platform-logo" src="{{ url_for('static', filename=platform_logos[m.platform]) }}" alt="{{ m.platform }}">
+        {% else %}
+        <p class="muted">{{ m.platform }}</p>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section" id="series">
+  <div class="section-head">
+    <h2>Séries em destaque</h2>
+    <p class="muted">Para maratonar na Netflix, Disney+ ou Amazon Prime Video.</p>
+  </div>
+  <div class="rec-grid">
+    {% for s in series_recs %}
+    <article class="rec-card series">
+      <img class="rec-poster" src="{{ url_for('static', filename=s.poster) }}" alt="{{ s.title }}">
+      <div class="rec-body">
+        <div class="rec-badge">Série · {{ s.year }}</div>
+        <h3>{{ s.title }}</h3>
+        <p class="rec-tag">{{ s.tag }}</p>
+        <p class="desc">{{ s.blurb }}</p>
+        {% if platform_logos.get(s.platform) %}
+        <img class="rec-platform-logo" src="{{ url_for('static', filename=platform_logos[s.platform]) }}" alt="{{ s.platform }}">
+        {% else %}
+        <p class="muted">{{ s.platform }}</p>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

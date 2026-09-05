@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Enviado · {{ brand }}{% endblock %}
+{% block content %}
+<section class="section confirm-hero">
+  <p class="eyebrow success">Comprovativo recebido</p>
+  <h1 class="page-title">Pedido {{ order.id }}</h1>
+  <p class="lead">A abrir o WhatsApp automaticamente para confirmares o envio…</p>
+  <p class="notice"><strong>Não se esqueça de enviar ou anexar o comprovativo do pagamento.</strong></p>
+  <p class="muted">Se o WhatsApp não abrir sozinho, usa o botão abaixo.</p>
+  <div class="hero-actions" style="margin-top:1.25rem">
+    <a id="wa" class="btn btn-primary" href="{{ whatsapp_url }}" target="_blank" rel="noopener">Abrir WhatsApp</a>
+    <a class="btn btn-outline" href="{{ url_for('index') }}">Voltar à loja</a>
+  </div>
+</section>
+<script>
+  setTimeout(function () {
+    window.location.href = {{ whatsapp_url|tojson }};
+  }, 600);
+</script>
+{% endblock %}

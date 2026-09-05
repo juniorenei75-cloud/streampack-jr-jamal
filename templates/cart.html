@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Carrinho · {{ brand }}{% endblock %}
+{% block content %}
+<section class="section">
+  <h1 class="page-title">Carrinho</h1>
+  {% if not items %}
+  <div class="empty panel">
+    <p>O carrinho está vazio.</p>
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Ver pacotes</a>
+  </div>
+  {% else %}
+  <div class="cart-list">
+    {% for i in items %}
+    <div class="cart-item panel">
+      <div>
+        <span class="accent-dot" style="background: {{ i.accent }}"></span>
+        <strong>{{ i.product_name }}</strong>
+        <span class="muted">· {{ i.plan_label }}</span>
+        <p class="muted">{{ format_mzn(i.unit_price) }} / unidade</p>
+      </div>
+      <form method="post" action="{{ url_for('cart_update') }}" class="inline-form">
+        <input type="hidden" name="product_id" value="{{ i.product_id }}">
+        <input type="hidden" name="plan_id" value="{{ i.plan_id }}">
+        <select name="new_plan_id" onchange="this.form.action.value='set_plan'; this.form.submit()">
+          {% for plan in products[i.product_id].plans %}
+          <option value="{{ plan.id }}" {% if plan.id == i.plan_id %}selected{% endif %}>{{ plan.label }} — {{ format_mzn(plan.price_mzn) }}</option>
+          {% endfor %}
+        </select>
+        <input type="hidden" name="action" value="set_plan">
+      </form>
+      <form method="post" action="{{ url_for('cart_update') }}" class="inline-form qty-row">
+        <input type="hidden" name="product_id" value="{{ i.product_id }}">
+        <input type="hidden" name="plan_id" value="{{ i.plan_id }}">
+        <input type="hidden" name="action" value="update">
+        <input type="number" name="qty" value="{{ i.qty }}" min="1" max="20">
+        <button class="btn btn-sm btn-outline" type="submit">Atualizar</button>
+      </form>
+      <div>
+        <strong>{{ format_mzn(i.line_total) }}</strong>
+        <form method="post" action="{{ url_for('cart_update') }}" class="inline-form">
+          <input type="hidden" name="product_id" value="{{ i.product_id }}">
+          <input type="hidden" name="plan_id" value="{{ i.plan_id }}">
+          <input type="hidden" name="action" value="remove">
+          <button class="btn btn-sm btn-ghost" type="submit">Remover</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="panel summary-row">
+    <span>Total</span>
+    <strong class="total">{{ format_mzn(total) }}</strong>
+  </div>
+  <div class="hero-actions">
+    <a class="btn btn-outline" href="{{ url_for('index') }}">Continuar a comprar</a>
+    <a class="btn btn-primary" href="{{ url_for('checkout') }}">Checkout</a>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

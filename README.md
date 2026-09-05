@@ -1,0 +1,23 @@
+# StreamPack Jr.Jamal
+
+Protótipo de loja para vender pacotes Netflix, Amazon e Prime Video.
+
+## Correr
+
+```bash
+cd streampack-jr-jamal
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
+```
+
+Abre http://127.0.0.1:5000
+
+## Admin
+
+- URL: http://127.0.0.1:5000/admin
+- Palavra-passe: `streampack2026`
+
+Checkout cria pedido pendente (sem pagamento online). Cumprimento manual via WhatsApp.

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Checkout · {{ brand }}{% endblock %}
+{% block content %}
+<section class="section layout-2">
+  <div>
+    <h1 class="page-title">Os teus dados</h1>
+    <p class="notice">Passo 1 de 3 — indica o nome e o apelido para continuar para o pagamento.</p>
+    <form method="post" class="panel">
+      <div class="field">
+        <label>Nome
+          <input name="first_name" required autocomplete="given-name" value="{{ form.first_name }}">
+        </label>
+      </div>
+      <div class="field">
+        <label>Apelido
+          <input name="last_name" required autocomplete="family-name" value="{{ form.last_name }}">
+        </label>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Continuar para pagamento</button>
+    </form>
+  </div>
+  <aside class="panel">
+    <h2>Resumo</h2>
+    {% for i in items %}
+    <div class="summary-row">
+      <span>{{ i.product_name }} · {{ i.plan_label }} × {{ i.qty }}</span>
+      <span>{{ format_mzn(i.line_total) }}</span>
+    </div>
+    {% endfor %}
+    <div class="summary-row total">
+      <span>Total</span>
+      <strong>{{ format_mzn(total) }}</strong>
+    </div>
+  </aside>
+</section>
+{% endblock %}

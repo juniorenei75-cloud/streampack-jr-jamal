@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Comprovativo · {{ brand }}{% endblock %}
+{% block content %}
+<section class="section layout-2">
+  <div>
+    <p class="eyebrow">Passo 3 de 3 · Pedido {{ order.id }}</p>
+    <h1 class="page-title">Enviar comprovativo</h1>
+    <p class="notice"><strong>Não se esqueça de enviar ou anexar o comprovativo do pagamento.</strong></p>
+    <p class="muted">A mensagem do WhatsApp já leva o teu nome e o pacote. Anexa o comprovativo no chat.</p>
+
+    <div class="panel" style="margin-bottom:1rem">
+      <h2>WhatsApp</h2>
+      <p class="muted">Abre o chat do vendedor com os dados do pedido. Anexa a foto/PDF do comprovativo e envia.</p>
+      <a class="btn btn-primary btn-block" href="{{ whatsapp_url }}" target="_blank" rel="noopener">Abrir WhatsApp e enviar comprovativo</a>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="panel">
+      <p class="muted">Opcional: também podes guardar uma cópia no sistema.</p>
+      <div class="field">
+        <label>Método de pagamento
+          <select name="payment_method" required>
+            {% for pm in payment_methods %}
+            <option value="{{ pm.id }}" {% if form.payment_method == pm.id %}selected{% endif %}>{{ pm.name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </div>
+      <div class="field">
+        <label>WhatsApp / telefone
+          <input name="phone" required placeholder="+258 ..." value="{{ form.phone }}">
+        </label>
+      </div>
+      <div class="field">
+        <label>Email
+          <input type="email" name="email" required value="{{ form.email }}">
+        </label>
+      </div>
+      <div class="field">
+        <label>Comprovativo (imagem ou PDF)
+          <input type="file" name="receipt" accept="image/*,.pdf" required>
+        </label>
+      </div>
+      <div class="field">
+        <label>Notas (opcional)
+          <textarea name="notes" rows="3">{{ form.notes }}</textarea>
+        </label>
+      </div>
+      <button class="btn btn-outline btn-block" type="submit">Guardar no site e abrir WhatsApp</button>
+    </form>
+  </div>
+  <aside class="panel">
+    <h2>Pedido</h2>
+    <p><strong>{{ order.customer_name }}</strong></p>
+    <p class="total">{{ format_mzn(order.total_mzn) }}</p>
+    {% for i in order.items %}
+    <div class="summary-row">
+      <span>{{ i.product_name }} · {{ i.plan_label }} × {{ i.qty }}</span>
+      <span>{{ format_mzn(i.line_total) }}</span>
+    </div>
+    {% endfor %}
+  </aside>
+</section>
+{% endblock %}
