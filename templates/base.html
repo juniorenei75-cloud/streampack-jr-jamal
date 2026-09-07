@@ -21,6 +21,9 @@
   <meta name="twitter:title" content="{% block tw_title %}{{ brand }} — StreamPack{% endblock %}">
   <meta name="twitter:description" content="{% block tw_description %}StreamPack Jr.Jamal — loja de streaming (Stream Pack).{% endblock %}">
   <link rel="icon" href="{{ url_for('static', filename='img/logo-c.png') }}" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   {% block head_extra %}{% endblock %}
 </head>
@@ -31,26 +34,57 @@
         <img class="brand-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="{{ brand }}">
         <span class="brand-text">{{ brand }}</span>
       </a>
-      <nav class="nav-links">
-        <a href="{{ url_for('index') }}">Início</a>
-        <a href="{{ url_for('cart_view') }}">Carrinho {% if cart_count %}<span class="cart-badge">{{ cart_count }}</span>{% endif %}</a>
+      <nav class="nav-links" aria-label="Principal">
+        <a class="nav-link" href="{{ url_for('index') }}#pacotes">Pacotes</a>
+        <a class="nav-link" href="{{ url_for('index') }}#series">Séries</a>
+        <a class="nav-link nav-wa" href="{{ whatsapp_href }}" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-sm btn-ghost nav-cart" href="{{ url_for('cart_view') }}">
+          Carrinho{% if cart_count %} <span class="cart-badge">{{ cart_count }}</span>{% endif %}
+        </a>
       </nav>
     </div>
   </header>
-  <main class="container">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div class="flashes">
-          {% for category, message in messages %}
-            <div class="flash {{ category }}">{{ message }}</div>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
+
+  <main class="site-main">
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flashes">
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </div>
   </main>
+
   <footer class="site-footer">
-    <div class="container muted">{{ brand }} · Assinaturas streaming em Moçambique · Pagamento via WhatsApp</div>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img class="brand-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="">
+        <div>
+          <strong>{{ brand }}</strong>
+          <p class="muted">Assinaturas de streaming em Moçambique. Pagamento via Mola ou Millennium BIM.</p>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3>Navegação</h3>
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('index') }}#pacotes">Pacotes</a>
+        <a href="{{ url_for('cart_view') }}">Carrinho</a>
+      </div>
+      <div class="footer-col">
+        <h3>Contacto</h3>
+        <a class="footer-wa" href="{{ whatsapp_href }}" target="_blank" rel="noopener">WhatsApp {{ whatsapp_display }}</a>
+        <p class="muted">Atendimento rápido · Nampula e online</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span class="muted">© {{ brand }} · StreamPack</span>
+      <a class="muted" href="{{ whatsapp_href }}" target="_blank" rel="noopener">{{ whatsapp_display }}</a>
+    </div>
   </footer>
 </body>
 </html>

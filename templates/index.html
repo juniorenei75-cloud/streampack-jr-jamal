@@ -18,43 +18,51 @@
 </script>
 {% endblock %}
 {% block content %}
-<section class="hero hero-grid hero-animated">
-  <div class="hero-bg" aria-hidden="true">
-    <span class="orb orb-1"></span>
-    <span class="orb orb-2"></span>
-    <span class="orb orb-3"></span>
-    <span class="hero-gridlines"></span>
-  </div>
+<section class="hero">
   <div class="hero-copy">
-    <p class="eyebrow">Loja de streaming em Moçambique</p>
-    <div class="hero-brand">
-      <img class="hero-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="{{ brand }}">
-    </div>
-    <h1 class="page-title">StreamPack Jr.Jamal</h1>
-    <p class="tagline">Também procurado como Stream Pack</p>
-    <p class="lead">Assinaturas de streaming em Moçambique — escolhe o plano, paga com Mola ou Millennium BIM e confirma no WhatsApp.</p>
+    <p class="eyebrow">Streaming em Moçambique</p>
+    <img class="hero-logo" src="{{ url_for('static', filename='img/logo-c.png') }}" alt="{{ brand }}">
+    <h1 class="hero-title">StreamPack Jr.Jamal</h1>
+    <p class="lead">Assinaturas Netflix, Disney+ e Amazon Prime Video. Escolhe o plano, paga com Mola ou Millennium BIM e confirma no WhatsApp.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#pacotes">Ver pacotes</a>
-      <a class="btn btn-outline" href="#series">Séries</a>
+      <a class="btn btn-outline" href="#como-funciona">Como funciona</a>
     </div>
-  </div>
-  <div class="hero-panel">
-    <p class="muted">Como funciona</p>
-    <p>Encomenda online, transferes e envias o comprovativo no WhatsApp. Atendimento em Nampula e online.</p>
   </div>
 </section>
 
-<section class="section" id="sobre">
+<section class="section steps-section" id="como-funciona">
   <div class="section-head">
-    <h2>StreamPack · Stream Pack</h2>
-    <p class="muted">Este é o site oficial da StreamPack Jr.Jamal (Stream Pack). Pacotes Netflix, Disney+ e Amazon Prime Video desde 350 MZN/mês, com pagamento Mola ou Millennium BIM.</p>
+    <div>
+      <h2>Como funciona</h2>
+      <p class="muted">Três passos simples até ao teu acesso.</p>
+    </div>
+  </div>
+  <div class="steps-grid">
+    <article class="step-card">
+      <span class="step-num">1</span>
+      <h3>Escolher</h3>
+      <p class="muted">Seleciona o pacote e o plano (1 mês a 1 ano) e adiciona ao carrinho.</p>
+    </article>
+    <article class="step-card">
+      <span class="step-num">2</span>
+      <h3>Pagar Mola / BIM</h3>
+      <p class="muted">Transfere o valor por Mola ou Millennium BIM com os dados do pedido.</p>
+    </article>
+    <article class="step-card">
+      <span class="step-num">3</span>
+      <h3>WhatsApp</h3>
+      <p class="muted">Envia o comprovativo no WhatsApp e recebe o acesso rapidamente.</p>
+    </article>
   </div>
 </section>
 
 <section class="section" id="pacotes">
   <div class="section-head">
-    <h2>Pacotes</h2>
-    <p class="muted">350 MZN / mês em todos os pacotes.</p>
+    <div>
+      <h2>Pacotes</h2>
+      <p class="muted">Desde 350 MZN / mês em todos os serviços.</p>
+    </div>
   </div>
   <div class="product-grid">
     {% for p in products %}
@@ -62,17 +70,19 @@
       <div class="product-logo-wrap">
         <img class="product-logo" src="{{ url_for('static', filename=p.logo) }}" alt="{{ p.name }} Moçambique">
       </div>
-      <h3>{{ p.name }}</h3>
-      <p class="tagline">{{ p.tagline }}</p>
-      <p class="desc">{{ p.description }}</p>
-      <p class="price-from">Desde <strong>{{ format_mzn(p.plans[0].price_mzn) }}</strong></p>
-      <div class="hero-actions">
-        <a class="btn btn-outline" href="{{ url_for('product_detail', product_id=p.id) }}">Ver planos</a>
+      <div class="product-body">
+        <h3>{{ p.name }}</h3>
+        <p class="tagline">{{ p.tagline }}</p>
+        <p class="desc">{{ p.description }}</p>
+      </div>
+      <p class="price-from">Desde <strong>{{ format_mzn(p.plans[0].price_mzn) }}</strong><span class="muted"> / mês</span></p>
+      <div class="card-actions">
+        <a class="btn btn-outline btn-sm" href="{{ url_for('product_detail', product_id=p.id) }}">Ver planos</a>
         <form method="post" action="{{ url_for('cart_add') }}" class="inline-form">
           <input type="hidden" name="product_id" value="{{ p.id }}">
           <input type="hidden" name="plan_id" value="{{ p.plans[0].id }}">
           <input type="hidden" name="qty" value="1">
-          <button class="btn btn-primary" type="submit">Adicionar 1 mês</button>
+          <button class="btn btn-primary btn-sm" type="submit">Adicionar 1 mês</button>
         </form>
       </div>
     </article>
@@ -82,23 +92,29 @@
 
 <section class="section" id="series">
   <div class="section-head">
-    <h2>Séries em destaque</h2>
-    <p class="muted">Para maratonar na Netflix, Disney+ ou Amazon Prime Video.</p>
+    <div>
+      <h2>Séries em destaque</h2>
+      <p class="muted">Catálogo para maratonar na Netflix, Disney+ ou Amazon Prime Video.</p>
+    </div>
   </div>
-  <div class="rec-grid">
+  <div class="catalog-grid">
     {% for s in series_recs %}
-    <article class="rec-card series">
-      <img class="rec-poster" src="{{ url_for('static', filename=s.poster) }}" alt="{{ s.title }}">
-      <div class="rec-body">
-        <div class="rec-badge">Série · {{ s.year }}</div>
+    <article class="catalog-card">
+      <div class="catalog-poster-wrap">
+        <img class="catalog-poster" src="{{ url_for('static', filename=s.poster) }}" alt="{{ s.title }}" loading="lazy">
+      </div>
+      <div class="catalog-body">
+        <div class="catalog-meta">
+          <span class="rec-badge">{{ s.year }}</span>
+          {% if platform_logos.get(s.platform) %}
+          <img class="rec-platform-logo" src="{{ url_for('static', filename=platform_logos[s.platform]) }}" alt="{{ s.platform }}">
+          {% else %}
+          <span class="muted">{{ s.platform }}</span>
+          {% endif %}
+        </div>
         <h3>{{ s.title }}</h3>
         <p class="rec-tag">{{ s.tag }}</p>
         <p class="desc">{{ s.blurb }}</p>
-        {% if platform_logos.get(s.platform) %}
-        <img class="rec-platform-logo" src="{{ url_for('static', filename=platform_logos[s.platform]) }}" alt="{{ s.platform }}">
-        {% else %}
-        <p class="muted">{{ s.platform }}</p>
-        {% endif %}
       </div>
     </article>
     {% endfor %}

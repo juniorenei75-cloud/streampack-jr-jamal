@@ -5,9 +5,9 @@
 <section class="section confirm-hero">
   <p class="eyebrow success">Pedido criado</p>
   <h1 class="page-title">Obrigado, {{ order['customer_name'] }}</h1>
-  <p class="lead">O teu pedido <span class="order-id">{{ order['id'] }}</span> está <strong class="pending">pendente</strong>.</p>
-  <p class="muted">Entraremos em contacto no WhatsApp <strong>{{ order['phone'] }}</strong> para confirmar o pagamento e entregar o acesso.</p>
-  <div class="panel order-items">
+  <p class="lead">O teu pedido <span class="order-id">{{ order['id'] }}</span> está <strong>pendente</strong>.</p>
+  <p class="muted">Entraremos em contacto no WhatsApp <strong>{{ order['phone'] or whatsapp_display }}</strong> para confirmar o pagamento e entregar o acesso.</p>
+  <div class="panel order-summary">
     {% for i in order['items'] %}
     <div class="summary-row">
       <span>{{ i.product_name }} · {{ i.plan_label }} × {{ i.qty }}</span>
@@ -19,6 +19,9 @@
       <strong>{{ format_mzn(order['total_mzn']) }}</strong>
     </div>
   </div>
-  <a class="btn btn-primary" href="{{ url_for('index') }}">Voltar à loja</a>
+  <div class="hero-actions confirm-actions">
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Voltar à loja</a>
+    <a class="btn btn-outline" href="{{ whatsapp_href }}" target="_blank" rel="noopener">WhatsApp {{ whatsapp_display }}</a>
+  </div>
 </section>
 {% endblock %}

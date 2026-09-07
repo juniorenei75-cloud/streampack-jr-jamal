@@ -4,23 +4,24 @@
 {% block content %}
 <section class="section layout-2">
   <div>
-    <h1 class="page-title">Os teus dados</h1>
-    <p class="notice">Passo 1 de 3 — indica o nome e o apelido para continuar para o pagamento.</p>
+    <div class="page-header">
+      <p class="eyebrow">Passo 1 de 3</p>
+      <h1 class="page-title">Os teus dados</h1>
+      <p class="muted">Indica o nome e o apelido para continuar para o pagamento.</p>
+    </div>
     <form method="post" class="panel">
       <div class="field">
-        <label>Nome
-          <input name="first_name" required autocomplete="given-name" value="{{ form.first_name }}">
-        </label>
+        <label for="first_name">Nome</label>
+        <input id="first_name" name="first_name" required autocomplete="given-name" value="{{ form.first_name }}">
       </div>
       <div class="field">
-        <label>Apelido
-          <input name="last_name" required autocomplete="family-name" value="{{ form.last_name }}">
-        </label>
+        <label for="last_name">Apelido</label>
+        <input id="last_name" name="last_name" required autocomplete="family-name" value="{{ form.last_name }}">
       </div>
       <button class="btn btn-primary btn-block" type="submit">Continuar para pagamento</button>
     </form>
   </div>
-  <aside class="panel">
+  <aside class="panel summary-panel">
     <h2>Resumo</h2>
     {% for i in items %}
     <div class="summary-row">

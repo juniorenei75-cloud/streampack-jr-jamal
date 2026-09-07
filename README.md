@@ -1,6 +1,6 @@
 # StreamPack Jr.Jamal
 
-Protótipo de loja para vender pacotes Netflix, Amazon e Prime Video.
+Loja oficial de assinaturas de streaming em Moçambique (Netflix, Disney+ e Amazon Prime Video).
 
 ## Correr
 

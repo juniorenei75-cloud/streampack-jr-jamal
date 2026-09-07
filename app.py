@@ -301,6 +301,8 @@ def inject_globals():
         "products": PRODUCTS,
         "payment_methods": PAYMENT_METHODS,
         "platform_logos": PLATFORM_LOGOS,
+        "whatsapp_display": "+258 84 905 3340",
+        "whatsapp_href": f"https://wa.me/{MERCHANT_WHATSAPP}",
     }
 
 
