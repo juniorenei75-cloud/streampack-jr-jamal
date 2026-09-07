@@ -45,10 +45,10 @@ MAX_RECEIPT_BYTES = 8 * 1024 * 1024
 PAYMENT_METHODS = [
     {
         "id": "mola",
-        "name": "Mola",
+        "name": "E-Mola",
         "logo": "img/mola.svg",
         "number": "867941110",
-        "hint": "Transferência Mola",
+        "hint": "Transferência E-Mola",
     },
     {
         "id": "millennium_bim",
@@ -521,7 +521,7 @@ def payment(order_id):
     if request.method == "POST":
         method = request.form.get("payment_method", "")
         if method not in {pm["id"] for pm in PAYMENT_METHODS}:
-            flash("Escolhe Mola ou Millennium BIM.", "error")
+            flash("Escolha E-Mola ou Millennium BIM.", "error")
             return render_template("payment.html", order=order, whatsapp_url=build_whatsapp_link(order))
         get_db().execute(
             "UPDATE orders SET payment_method = ? WHERE id = ?",
