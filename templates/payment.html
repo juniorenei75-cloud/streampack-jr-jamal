@@ -5,15 +5,18 @@
 <section class="section">
   <div class="page-header">
     <p class="eyebrow">Pedido {{ order.id }} · Passo 2 de 3</p>
-    <h1 class="page-title">Faz a transferência</h1>
-    <p class="lead">Olá {{ order.first_name }}, transfere <strong>{{ format_mzn(order.total_mzn) }}</strong> por Mola ou Millennium BIM. Depois envia o comprovativo no WhatsApp.</p>
+    <h1 class="page-title">Pagamento</h1>
+    <p class="lead">Olá {{ order.first_name }}, o total do seu pedido é <strong>{{ format_mzn(order.total_mzn) }}</strong>.</p>
   </div>
 
-  <p class="notice"><strong>Não te esqueças de anexar o comprovativo do pagamento.</strong></p>
+  <p class="notice">
+    Faça a transferência para uma das contas indicadas abaixo e, de seguida, envie o comprovativo para o WhatsApp
+    <strong>{{ whatsapp_display }}</strong>.
+  </p>
 
   <div class="pay-methods">
-    <h2>Dados para pagamento</h2>
-    <p class="help">Copia o número e faz a transferência do valor exacto do pedido.</p>
+    <h2>Contas para transferência</h2>
+    <p class="help">Utilize o valor exacto do pedido. Pode escolher Mola ou Millennium BIM.</p>
     <div class="pay-grid">
       {% for pm in payment_methods %}
       <div class="pay-card">
@@ -26,10 +29,9 @@
   </div>
 
   <div class="panel wa-panel">
-    <h2>Enviar comprovativo no WhatsApp</h2>
-    <p class="muted">Abre o chat do vendedor com o nome, pacote e total já preenchidos. Anexa o comprovativo e envia.</p>
-    <a class="btn btn-primary btn-block" href="{{ whatsapp_url }}" target="_blank" rel="noopener">Abrir WhatsApp e enviar comprovativo</a>
-    <p class="help">WhatsApp {{ whatsapp_display }}</p>
+    <h2>Enviar comprovativo</h2>
+    <p class="muted">Após a transferência, envie o comprovativo para {{ whatsapp_display }}. O botão abaixo abre o WhatsApp com os dados do pedido.</p>
+    <a class="btn btn-primary btn-block" href="{{ whatsapp_url }}" target="_blank" rel="noopener">Enviar comprovativo no WhatsApp</a>
   </div>
 </section>
 {% endblock %}
