@@ -36,7 +36,6 @@
       </a>
       <nav class="nav-links" aria-label="Principal">
         <a class="nav-link" href="{{ url_for('index') }}#pacotes">Pacotes</a>
-        <a class="nav-link" href="{{ url_for('index') }}#series">Séries</a>
         <a class="nav-link nav-wa" href="{{ whatsapp_href }}" target="_blank" rel="noopener">WhatsApp</a>
         <a class="btn btn-sm btn-ghost nav-cart" href="{{ url_for('cart_view') }}">
           Carrinho{% if cart_count %} <span class="cart-badge">{{ cart_count }}</span>{% endif %}

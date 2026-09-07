@@ -90,34 +90,4 @@
   </div>
 </section>
 
-<section class="section" id="series">
-  <div class="section-head">
-    <div>
-      <h2>Séries em destaque</h2>
-      <p class="muted">Catálogo para maratonar na Netflix, Disney+ ou Amazon Prime Video.</p>
-    </div>
-  </div>
-  <div class="catalog-grid">
-    {% for s in series_recs %}
-    <article class="catalog-card">
-      <div class="catalog-poster-wrap">
-        <img class="catalog-poster" src="{{ url_for('static', filename=s.poster) }}" alt="{{ s.title }}" loading="lazy">
-      </div>
-      <div class="catalog-body">
-        <div class="catalog-meta">
-          <span class="rec-badge">{{ s.year }}</span>
-          {% if platform_logos.get(s.platform) %}
-          <img class="rec-platform-logo" src="{{ url_for('static', filename=platform_logos[s.platform]) }}" alt="{{ s.platform }}">
-          {% else %}
-          <span class="muted">{{ s.platform }}</span>
-          {% endif %}
-        </div>
-        <h3>{{ s.title }}</h3>
-        <p class="rec-tag">{{ s.tag }}</p>
-        <p class="desc">{{ s.blurb }}</p>
-      </div>
-    </article>
-    {% endfor %}
-  </div>
-</section>
 {% endblock %}

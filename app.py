@@ -64,16 +64,6 @@ MOZ_TZ = timezone(timedelta(hours=2))
 
 
 
-SERIES_RECS = [
-    {"title": "Stranger Things", "year": "5.ª temporada", "tag": "Ficção · Mistério", "blurb": "O fim da saga em Hawkins — ideal para maratonar.", "platform": "Netflix", "poster": "img/posters/stranger-things.png"},
-    {"title": "The Boys", "year": "Nova temporada", "tag": "Ação · Sátira", "blurb": "Super-heróis corruptos e muita adrenalina.", "platform": "Amazon Prime Video", "poster": "img/posters/the-boys.png"},
-    {"title": "The Lord of the Rings: The Rings of Power", "year": "Em destaque", "tag": "Fantasia", "blurb": "A Terra Média antes do Senhor dos Anéis.", "platform": "Amazon Prime Video", "poster": "img/posters/rings-of-power.png"},
-    {"title": "Wednesday", "year": "Nova temporada", "tag": "Mistério · Humor", "blurb": "Wednesday Addams na Nevermore Academy.", "platform": "Netflix", "poster": "img/posters/wednesday.png"},
-    {"title": "Reacher", "year": "Em alta", "tag": "Ação · Crime", "blurb": "Jack Reacher resolve casos à força.", "platform": "Amazon Prime Video", "poster": "img/posters/reacher.png"},
-    {"title": "Squid Game", "year": "Sucesso global", "tag": "Drama · Thriller", "blurb": "Jogos mortais e tensão até ao fim.", "platform": "Netflix", "poster": "img/posters/squid-game.png"},
-    {"title": "The Mandalorian", "year": "Em destaque", "tag": "Ação · Star Wars", "blurb": "Aventuras no universo Star Wars.", "platform": "Disney+", "poster": "img/posters/mandalorian.png"},
-    {"title": "Loki", "year": "Em destaque", "tag": "Marvel · Fantasia", "blurb": "O Deus da Traição pelo multiverso.", "platform": "Disney+", "poster": "img/posters/loki.png"},
-]
 
 
 PRODUCTS = {
@@ -357,7 +347,6 @@ def index():
     return render_template(
         "index.html",
         products=list(PRODUCTS.values()),
-        series_recs=SERIES_RECS,
     )
 
 
